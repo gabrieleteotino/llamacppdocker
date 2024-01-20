@@ -7,9 +7,9 @@ A simple project to create a Docker container with CUDA support to run Large Lan
 This project contains two main components
 
 - A Dockerized image with LlamaCppPython with CUDA support
-- A Dockerized image built on the previous one with a simple python application that uses **Mistral 7B** to extract information from a series of Job Ads. (Yes I am #OpenToWork 😁)
+- A Dockerized image built on the previous one with a simple python application that uses **Dolphin Mistral 7B** to extract information from a series of Job Ads. (Yes I am #OpenToWork 😁)
 
-Please note that the Python code is very crude and should not be taken as an example on how to use LLM. The only ppurpose is to run a few iterations with different prompts to view the performace of the GPU inference.
+Please note that the Python code is very crude and should not be taken as an example on how to use LLM. The only purpose is to run a few iterations with different prompts to view the performace of the GPU inference.
 
 ## Prerequisite
 
