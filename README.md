@@ -1,23 +1,36 @@
 # LlamaCppDocker
 
-## Description
-
 A simple project to create a Docker container with CUDA support to run Large Language Models (LLM) on GPU.
+
+## Description
 
 This project contains two main components
 
 - A Dockerized image with LlamaCppPython with CUDA support
 - A Dockerized image built on the previous one with a simple python application that uses **Mistral 7B** to extract information from a series of Job Ads. (Yes I am #OpenToWork 😁)
 
-## Prerequisite
+Please note that the Python code is very crude and should not be taken as an example on how to use LLM. The only ppurpose is to run a few iterations with different prompts to view the performace of the GPU inference.
 
-My machine is Windows 11 with an RTX 3070, NVidia drivers 546.12, CUDA 12.3.
+## Prerequisite
 
 You will need:
 
 - Docker Desktop
 - Latenst NVidia drivers
 - Nvidia [CUDA Toolkit](https://developer.nvidia.com/cuda-downloads)
+
+My System Configuration:
+
+- Operating System: Windows 11
+- GPU: RTX 3070
+
+Software Versions:
+
+- Docker Desktop: 4.26.1
+- NVidia drivers: 546.12
+- CUDA: 12.3.
+
+No other systems has been tested.
 
 # Instructions
 
@@ -30,9 +43,9 @@ You will need:
 
 To speed up the development process we will build a base image with CUDA and llama-cpp-python.
 
-If you have other requirements in your project put them inside this image, it will make building and iterating on your app image much faster.
+Place other project requirements in this image for faster building and iteration of your app.
 
-From the root folder of the project run
+From the root folder of the project run:
 
 ```powershell
 docker build --build-arg GPU_ENABLED=true -t llama-cpp-python-docker:12.1.1 -f .\docker\llama-cpp-python-docker\Dockerfile .
@@ -48,7 +61,7 @@ Note: it is possible to not use a volume and map a local folder but the performa
 
 ### Create a volume.
 
-```
+```powershell
 docker volume create gguf_models
 ```
 
@@ -56,7 +69,7 @@ This command will use "dummy" docker image to copy the model into the volume.
 
 Copy the Mistral model into the volume by running the following command:
 
-```
+```powershell
 docker run --rm -v gguf_models:/vol -v C:\lmstudio\models\TheBloke\dolphin-2.6-mistral-7B-GGUF:/src alpine cp /src/dolphin-2.6-mistral-7b.Q5_0.gguf /vol/
 ```
 
