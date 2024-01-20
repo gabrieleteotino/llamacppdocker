@@ -1,11 +1,23 @@
 # LlamaCppDocker
 
+## Description
+
+A simple project to create a Docker container with CUDA support to run Large Language Models (LLM) on GPU.
+
 This project contains two main components
 
 - A Dockerized image with LlamaCppPython with CUDA support
-- A Dockerized image built on the previous one with a simple python application that uses **Mistral 7B** to extract information from a series of Job Ads. (#OpenToWork)
+- A Dockerized image built on the previous one with a simple python application that uses **Mistral 7B** to extract information from a series of Job Ads. (Yes I am #OpenToWork 😁)
 
-My machine is Windows 11 with an RTX 3070, NVidia drivers 546.12, CUDA 12.3 ([CUDA Toolkit download](https://developer.nvidia.com/cuda-downloads))
+## Prerequisite
+
+My machine is Windows 11 with an RTX 3070, NVidia drivers 546.12, CUDA 12.3.
+
+You will need:
+
+- Docker Desktop
+- Latenst NVidia drivers
+- Nvidia [CUDA Toolkit](https://developer.nvidia.com/cuda-downloads)
 
 # Instructions
 
@@ -50,10 +62,23 @@ docker run --rm -v gguf_models:/vol -v C:\lmstudio\models\TheBloke\dolphin-2.6-m
 
 ### Build and run the app image
 
-```
+This command build the container with our application code:
+
+```powershell
 docker build --build-arg GPU_ENABLED=true -f docker/test-app/Dockerfile -t test_app .
-
-docker run -d --gpus=all --cap-add SYS_RESOURCE -e USE_MLOCK=0 -e MODEL=/var/model/dolphin-2.6-mistral-7b.Q5_0.gguf -v gguf_models:/var/model -p 8000:8000 -t test_app
 ```
 
-Inspect the output of the container logs from Docker Desktop to see the result.
+This command runs the Docker container for the application with the necessary environment variables and settings:
+
+```powershell
+docker run -d --gpus=all --cap-add SYS_RESOURCE -e USE_MLOCK=0 -e MODEL=/var/model/dolphin-2.6-mistral-7b.Q5_0.gguf -v gguf_models:/var/model -t test_app
+```
+
+You can inspect the output of the container logs from Docker Desktop to see the result.
+
+# Contact
+
+If you have any questions or issues, feel free to reach out:
+
+- [LinkedIn](https://www.linkedin.com/in/gabrieleteotino/)
+- [Create a new issue](https://github.com/gabrieleteotino/llamacppdocker/issues) on this GitHub repository
